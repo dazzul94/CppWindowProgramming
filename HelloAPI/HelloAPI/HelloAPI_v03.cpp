@@ -1,5 +1,8 @@
 #include <windows.h>
-
+/*
+4강. 차일드 윈도우 생성과 버튼 컨트롤
+*/
+// 차일드 컨트롤 ID를 2000으로 설정
 #define ID_OK_BTN	2000
 
 HINSTANCE g_hInst;
@@ -87,6 +90,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 
 		hChildWnd = CreateWindow(
 			L"button",        		// 윈도우 클래스 이름 
+			// -> 버튼 컨드롤이므로 자동으로 생성된다.
 			L"지역대학",			// 윈도우 타이틀 
 			WS_CHILD | WS_VISIBLE, 	// 윈도우 스타일 
 			20,       		// 윈도우 보일 때 x 좌표 
@@ -103,12 +107,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	}
 	case WM_COMMAND:
 	{
-		if (LOWORD(wParam) == ID_OK_BTN)
+		if (LOWORD(wParam) == ID_OK_BTN) // 2000
 		{
+			// 팝업
 			MessageBox(hWnd, L"[지역대학] 버튼이 클릭되었다", L"지역대학", MB_OK);
+			// MB_OK => 확인 버튼 나옴 (종류 여러가지 있음)
 		}
 
-		return 0;
+		return 0;	// default
 	}
 	case WM_DESTROY:
 		PostQuitMessage(0);

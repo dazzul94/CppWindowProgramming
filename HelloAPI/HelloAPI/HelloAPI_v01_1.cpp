@@ -1,13 +1,13 @@
 #include <windows.h>
 /*
-2강. 차일드 윈도우 생성
+2강. 차일드 윈도우 생성(주석버전)
 */
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// 메인 윈도우 프로시져
-LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam); //차일드 윈도우 프로시져
+// LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam); //차일드 윈도우 프로시져
 
 HINSTANCE g_hInst; // 차일드 윈도우에서 쓰기 위한 전역변수
 LPCTSTR lpszClass = L"HelloAPI";	// 메인윈도우의 이름
-LPCTSTR ChildClassName = L"ChildWin";	// 차일드윈도우의 이름
+// LPCTSTR ChildClassName = L"ChildWin";	// 차일드윈도우의 이름
 
 // 윈도우 클래스 생성함수
 int APIENTRY WinMain(HINSTANCE hInstance,	// 애플리케이션의 인스턴스 핸들
@@ -34,10 +34,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,	// 애플리케이션의 인스턴스 핸들
 
 	RegisterClass(&WndClass);     //메인윈도우 클래스 등록
 
-	/******************* 차일드 윈도우 **********************/
+	/******************* 차일드 윈도우 ********************
+	
 	WndClass.lpfnWndProc = ChildWndProc;      //차일드 윈도우 프로시저
 	WndClass.lpszClassName = ChildClassName; //차일드 윈도우 클래스이름
 	RegisterClass(&WndClass);	// 등록만 해주고 show는 메인 윈도우 프로시져에서
+	*/
 
 	// 메인 윈도우 CreateWindow
 	hWnd = CreateWindow(lpszClass,			//윈도우클래스 이름
@@ -63,22 +65,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,	// 애플리케이션의 인스턴스 핸들
 // 메인 윈도우 프로시져
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	WPARAM wParam, LPARAM lParam)
-	/*
-	1. wParam: WM_COMMAND의 이벤트 정보
-		상위 2byte: 어떤 종류의 메시지인지 표시해주는 내용(ex BN_CLICK)
-		하위 2byte: 컨트롤의 ID(등록해줄때 사용하는 번호 ex 2000)
-	2. lParam: 윈도우 핸들
 
-	-> HIWORD : get wParam's high word
-	-> LOWORD : get wParam's low word
-	*/
-	
 {
 	LPCTSTR text = L"메인윈도우 생성";
 	switch (iMessage) {
 	case WM_PAINT:	// 윈도우가 생성되거나 변경되거나 이동될때 만들어지는 이벤트(새로 그려야하기 때문에)
 	{
-		PAINTSTRUCT ps;	
+		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 		TextOut(hdc, 100, 100, text, lstrlen(text));	// 텍스트 출력
 		EndPaint(hWnd, &ps);
@@ -86,6 +79,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	}
 	case WM_CREATE:	// 윈도우가 생성될 때 만들어지는 이벤트( 생성할 때 차일드 윈도우를 createWindow) 
 	{
+		/*
 		HWND hChildWnd = CreateWindow(
 			ChildClassName,     		// 차일드 윈도우 클래스 이름 
 			L"차일드 윈도우",            	// 윈도우 타이틀 
@@ -102,8 +96,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 			(LPVOID)NULL);      	// 여분의 데이터
 
 		if (!hChildWnd) 	return -1;
-
 		ShowWindow(hChildWnd, SW_SHOW);
+		*/
 		return 0;
 	}
 	case WM_DESTROY:
@@ -113,12 +107,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
 // 차일드 윈도우 프로시져
+/*
 LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	LPCTSTR text = L"차일드 윈도우생성";
 	switch (message)
 	{
-	case WM_PAINT:	
+	case WM_PAINT:
 	{
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
@@ -131,15 +126,4 @@ LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
-
-/*
-1. 메인 윈도우와 차일드 윈도우 둘 중 어느 것이 먼저 보여질까?
--> 메인 윈도우
-2. WndPro와 ChildWndProC은 언제 호출될까?
--> 각각의 윈도우의 이벤트가 발생했을때 호출
-3. WM_PAINT, WM_CREATE 메시지는 누가 먼저 발생할까? 
-   그리고 누가 발생 시킬까?
-   (운영체제인가? 아니면 윈도우에서의 이벤트일까?)
--> 윈도우에서의 이벤트에서 의해 발생
--> WM_CREATE가 먼저, WM_PAINT 그다음 발생
-*/ 
+*/
