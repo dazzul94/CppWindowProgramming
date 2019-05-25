@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HelloAPI.cpp">
+    <ClCompile Include="HelloAPI_v03.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
