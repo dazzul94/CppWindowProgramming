@@ -1,4 +1,4 @@
-#include "student.h"
+#include "student_v01.h"
 // 기본 생성자
 CStudent::CStudent()
 {

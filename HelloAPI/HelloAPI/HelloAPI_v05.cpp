@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "student.h"
+#include "student_v01.h"
 /*
 4강. 차일드 윈도우 생성과 버튼 컨트롤
 */

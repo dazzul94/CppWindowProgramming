@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HelloAPI_v05.cpp" />
-    <ClCompile Include="student.cpp" />
+    <ClCompile Include="HelloAPI_v06.cpp" />
+    <ClCompile Include="student_v02.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="student.h" />
+    <ClInclude Include="student_v02.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
