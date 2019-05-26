@@ -35,17 +35,20 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	WndClass.lpszClassName = lpszClass;
 	WndClass.lpszMenuName = NULL;
 	WndClass.style = CS_HREDRAW | CS_VREDRAW;
-	RegisterClass(&WndClass);     
+	RegisterClass(&WndClass);
+	OutputDebugString(L"메인 윈도우 클래스 등록\n");
 
 	// 왼쪽 차일드 윈도우(ChildClassName_left)
 	WndClass.lpfnWndProc = ChildWndProc_left;      
 	WndClass.lpszClassName = ChildClassName_left; 
 	RegisterClass(&WndClass);
+	OutputDebugString(L"왼쪽 차일드 클래스 등록\n");
 
 	// 오른쪽 차일드 윈도우(ChildClassName_right)
 	WndClass.lpfnWndProc = ChildWndProc_right;
 	WndClass.lpszClassName = ChildClassName_right;
 	RegisterClass(&WndClass);
+	OutputDebugString(L"오른쪽 차일드 클래스 등록\n");
 
 	hWnd = CreateWindow(lpszClass,			
 		L"Visual C++ 프로그래밍",			    
@@ -58,6 +61,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		NULL);								
 
 	ShowWindow(hWnd, nCmdShow);
+	OutputDebugString(L"메인 윈도우 creatWindow");
 
 	while (GetMessage(&Message, 0, 0, 0)) {
 		TranslateMessage(&Message);
@@ -74,6 +78,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	switch (iMessage) {
 	case WM_PAINT:
 	{
+		OutputDebugString(L"=============메인 윈도우 콜백 함수의 WM_PAINT\n");
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 		TextOut(hdc, 100, 100, text1, lstrlen(text1));
@@ -83,6 +88,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	}
 	case WM_CREATE:
 	{
+		OutputDebugString(L"=============메인 윈도우 콜백 함수의 WM_CREATE\n");
 		HWND hChildWnd = CreateWindow(
 			ChildClassName_left,     		
 			L"출석수업",            	

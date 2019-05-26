@@ -134,8 +134,10 @@ LRESULT CALLBACK ChildWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 /*
 1. 메인 윈도우와 차일드 윈도우 둘 중 어느 것이 먼저 보여질까?
--> 메인 윈도우
-2. WndPro와 ChildWndProC은 언제 호출될까?
+-> 차일드 윈도우가 메인윈도우 만들기 전에 보여진다.
+   메인 윈도우를 생성 시작했을때 메인윈도우의 콜백함수의 WM_CREATE 이벤트로 가서 
+   차일드 윈도우를 생성, show하고 나서 메인 윈도우가 생성완료, show가 된다.
+2. WndProc와 ChildWndProc은 언제 호출될까?
 -> 각각의 윈도우의 이벤트가 발생했을때 호출
 3. WM_PAINT, WM_CREATE 메시지는 누가 먼저 발생할까? 
    그리고 누가 발생 시킬까?
