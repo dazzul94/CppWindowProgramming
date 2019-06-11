@@ -1,8 +1,5 @@
-﻿  pch.cpp
-  calendarbar.cpp
-  MainFrm.cpp
-  SDI.cpp
-  SDIDoc.cpp
+﻿  SDI.cpp
   SDIView.cpp
   코드를 생성하고 있습니다...
+C:\Users\dazzul\Documents\GitHub\CppWindowProgramming\SDI\SDI\SDIView.cpp(155,2): warning C4002:  함수 같은 매크로 호출 'ASSERT'에 대해 인수가 너무 많습니다.
   SDI.vcxproj -> C:\Users\dazzul\Documents\GitHub\CppWindowProgramming\SDI\Debug\SDI.exe

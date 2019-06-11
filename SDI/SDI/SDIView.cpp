@@ -39,6 +39,7 @@ BEGIN_MESSAGE_MAP(CSDIView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CSDIView::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // CSDIView 생성/소멸
@@ -136,3 +137,22 @@ CSDIDoc* CSDIView::GetDocument() const // 디버그되지 않은 버전은 인�
 
 
 // CSDIView 메시지 처리기
+
+
+int CSDIView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
+
+ /********* 3. ChildWnd Create ********/
+	m_Wnd01.Create(AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW),
+					_T("첫번째 차일드윈도우"),
+					WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CHILD,
+					CRect(40, 40, 250, 200),
+					this,
+					1010);
+	ASSERT(m_Wnd01, m_hWnd != NULL);
+	return 0;
+}

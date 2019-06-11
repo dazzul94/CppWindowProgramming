@@ -14,6 +14,8 @@
 
 #pragma once
 
+/********* 1. CChildWnd.h 헤더파일 추가 ********/
+#include "CChildWnd.h"
 
 class CSDIView : public CView
 {
@@ -27,6 +29,8 @@ public:
 
 // 작업입니다.
 public:
+ /********* 2. ChildWnd 객체 생성 ********/
+	CChildWnd m_Wnd01;
 
 // 재정의입니다.
 public:
@@ -53,6 +57,8 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 
 #ifndef _DEBUG  // SDIView.cpp의 디버그 버전
