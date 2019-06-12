@@ -31,6 +31,7 @@ public:
 public:
  /********* 2. ChildWnd 객체 생성 ********/
 	CChildWnd m_Wnd01;
+	CChildWnd m_Wnd02;	// 차일드 윈도우 하나 더 추가
 
 // 재정의입니다.
 public:
