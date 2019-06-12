@@ -138,7 +138,13 @@ CSDIDoc* CSDIView::GetDocument() const // 디버그되지 않은 버전은 인�
 
 // CSDIView 메시지 처리기
 
+// define ID
+#define ID_DECREASE_BUTTON 3000
+#define ID_INCREASE_BUTTON 3100
+#define ID_LIST_BOX 3200
+#define ID_PROGBAR 3200
 
+/********* childwindow 생성은 OnCreate() ********/
 int CSDIView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CView::OnCreate(lpCreateStruct) == -1)
@@ -146,18 +152,36 @@ int CSDIView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
 
- /********* 3. ChildWnd Create ********/
+	/********* 3. ChildWnd Create ********/
+	// TextOut을 추가한 childwindow를 두개 추가(객체)
 	m_Wnd01.Create(AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW),
-					_T("첫번째 차일드윈도우"),
-					WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CHILD,
-					CRect(50, 50, 300, 200),
-					this,
-					1010);
+		_T("첫번째 차일드윈도우"),
+		WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CHILD,
+		CRect(50, 50, 300, 200),
+		this,
+		1010);
 	m_Wnd02.Create(AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW),
 		_T("두번째 차일드윈도우"),
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CHILD,
 		CRect(350, 50, 600, 200),
 		this,
 		1020);
+
+	/********* control ********/
+
+	// button
+	// WS_VISIBLE: showWindow 안해도됨
+	m_Icrease_Btn.Create(_T("증가"), WS_VISIBLE, CRect(400, 300, 550, 330), this, ID_INCREASE_BUTTON);
+	m_Decrease_Btn.Create(_T("감소"), WS_VISIBLE, CRect(400, 350, 550, 380), this, ID_DECREASE_BUTTON);
+
+	// list box
+	m_ListBox.Create(WS_DLGFRAME | WS_VISIBLE, CRect(50, 300, 300, 400), this, ID_LIST_BOX);
+	m_ListBox.AddString(_T("윈도우 프로그래밍!"));
+	m_ListBox.AddString(_T("윈도우 프로그래밍!2"));
+
+	// Progress Bar 
+	m_ProgressBar.Create(WS_DLGFRAME | WS_VISIBLE, CRect(50,230,300,270), this, ID_PROGBAR);
+	m_ProgressBar.SetRange(0, 9);
+	m_ProgressBar.SetPos(1);
 	return 0;
 }

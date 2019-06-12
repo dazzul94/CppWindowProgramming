@@ -29,9 +29,23 @@ public:
 
 // 작업입니다.
 public:
- /********* 2. ChildWnd 객체 생성 ********/
+	/********* 2. ChildWnd 객체 생성 ********/
 	CChildWnd m_Wnd01;
 	CChildWnd m_Wnd02;	// 차일드 윈도우 하나 더 추가
+
+	/********* 컨트롤 ********/
+	
+	// button
+	CButton m_Decrease_Btn;	// 감소버튼
+	CButton m_Icrease_Btn;	// 증가버튼
+
+	// list box
+	CListBox m_ListBox;
+
+	// 진행바(Progress Bar)
+	CProgressCtrl m_ProgressBar;
+
+
 
 // 재정의입니다.
 public:
