@@ -27,7 +27,11 @@
 #define new DEBUG_NEW
 #endif
 
-
+// define ID
+#define ID_DECREASE_BUTTON 3000
+#define ID_INCREASE_BUTTON 3100
+#define ID_LIST_BOX 3200
+#define ID_PROGBAR 3300
 // CSDIView
 
 IMPLEMENT_DYNCREATE(CSDIView, CView)
@@ -40,6 +44,10 @@ BEGIN_MESSAGE_MAP(CSDIView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 	ON_WM_CREATE()
+
+	// 메시지맵에서 WM_COMMAND 메세지를 받으면 이 함수로 연결시켜준다.
+	ON_COMMAND(ID_DECREASE_BUTTON, OnDecreaseButton)
+	ON_COMMAND(ID_INCREASE_BUTTON, OnIncreaseButton)
 END_MESSAGE_MAP()
 
 // CSDIView 생성/소멸
@@ -114,6 +122,34 @@ void CSDIView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
+void CSDIView::OnDecreaseButton()
+{
+	int count = m_ListBox.GetCount();
+	if(count > 0) 
+	{
+		m_ListBox.DeleteString(count - 1);
+		m_ProgressBar.SetPos(count-1);
+	}
+	else
+	{
+		AfxMessageBox(_T("지울 아이템이 없습니다."));
+	}
+}
+
+void CSDIView::OnIncreaseButton()
+{
+	int count = m_ListBox.GetCount();
+	if (count < 9)
+	{
+		m_ListBox.AddString(_T("윈도우 프로그래밍!"));
+		m_ProgressBar.SetPos(count + 1);
+	}
+	else
+	{
+		AfxMessageBox(_T("더이상 추가할 수 없습니다."));
+	}
+}
+
 
 // CSDIView 진단
 
@@ -137,12 +173,6 @@ CSDIDoc* CSDIView::GetDocument() const // 디버그되지 않은 버전은 인�
 
 
 // CSDIView 메시지 처리기
-
-// define ID
-#define ID_DECREASE_BUTTON 3000
-#define ID_INCREASE_BUTTON 3100
-#define ID_LIST_BOX 3200
-#define ID_PROGBAR 3200
 
 /********* childwindow 생성은 OnCreate() ********/
 int CSDIView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -177,11 +207,11 @@ int CSDIView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// list box
 	m_ListBox.Create(WS_DLGFRAME | WS_VISIBLE, CRect(50, 300, 300, 400), this, ID_LIST_BOX);
 	m_ListBox.AddString(_T("윈도우 프로그래밍!"));
-	m_ListBox.AddString(_T("윈도우 프로그래밍!2"));
+	m_ListBox.AddString(_T("윈도우 프로그래밍!"));
 
 	// Progress Bar 
 	m_ProgressBar.Create(WS_DLGFRAME | WS_VISIBLE, CRect(50,230,300,270), this, ID_PROGBAR);
-	m_ProgressBar.SetRange(0, 9);
-	m_ProgressBar.SetPos(1);
+	m_ProgressBar.SetRange(0, 9);	// 반드시 0에서 시작
+	m_ProgressBar.SetPos(2);
 	return 0;
 }
