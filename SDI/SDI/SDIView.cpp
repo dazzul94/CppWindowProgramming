@@ -150,7 +150,7 @@ int CSDIView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_Wnd01.Create(AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW),
 					_T("첫번째 차일드윈도우"),
 					WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CHILD,
-					CRect(40, 40, 250, 200),
+					CRect(40, 40, 500, 200),
 					this,
 					1010);
 	ASSERT(m_Wnd01, m_hWnd != NULL);
