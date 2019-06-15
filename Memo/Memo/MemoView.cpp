@@ -27,6 +27,12 @@ BEGIN_MESSAGE_MAP(CMemoView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_CREATE()
+	ON_WM_SIZE()
+	ON_COMMAND(ID_EDIT_COPY, &CMemoView::OnEditCopy)
+	ON_COMMAND(ID_EDIT_PASTE, &CMemoView::OnEditPaste)
+	ON_COMMAND(ID_EDIT_CUT, &CMemoView::OnEditCut)
+	ON_COMMAND(ID_EDIT_UNDO, &CMemoView::OnEditUndo)
 END_MESSAGE_MAP()
 
 // CMemoView 생성/소멸
@@ -103,3 +109,81 @@ CMemoDoc* CMemoView::GetDocument() const // 디버그되지 않은 버전은 인
 
 
 // CMemoView 메시지 처리기
+
+
+int CMemoView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  여기에 특수화된 작성 코드를 추가합니다.
+	CMemoDoc* pDoc = GetDocument();
+
+	CRect rect(0, 0, 0, 0);
+	pDoc->m_Edit.Create(ES_AUTOVSCROLL | ES_MULTILINE | ES_WANTRETURN | WS_VISIBLE | WS_CHILDWINDOW | WS_VSCROLL, rect, this, 1);
+	return 0;
+}
+
+
+void CMemoView::OnSize(UINT nType, int cx, int cy)
+{
+	CView::OnSize(nType, cx, cy);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	CMemoDoc* pDoc = GetDocument();
+	CRect rect;
+	GetClientRect(rect);
+	pDoc->m_Edit.SetWindowPos(&wndTop, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_SHOWWINDOW);
+
+}
+
+
+BOOL CMemoView::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	CMemoDoc* pDoc = GetDocument();
+	switch (LOWORD(wParam))
+	{
+	case 1:
+		switch (HIWORD(wParam))
+		{
+		case EN_CHANGE:
+			pDoc->SetModifiedFlag(TRUE);	//변경 사항이 있다는 표시
+		}
+		break;
+	}
+	return CView::OnCommand(wParam, lParam);
+}
+
+
+void CMemoView::OnEditCopy()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CMemoDoc* pDoc = GetDocument();
+	pDoc->m_Edit.Copy();
+
+}
+
+
+void CMemoView::OnEditPaste()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CMemoDoc* pDoc = GetDocument();
+	pDoc->m_Edit.Paste();
+}
+
+
+void CMemoView::OnEditCut()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CMemoDoc* pDoc = GetDocument();
+	pDoc->m_Edit.Cut();
+}
+
+
+void CMemoView::OnEditUndo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CMemoDoc* pDoc = GetDocument();
+	pDoc->m_Edit.Undo();
+}

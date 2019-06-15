@@ -40,6 +40,14 @@ protected:
 // 생성된 메시지 맵 함수
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	afx_msg void OnEditCopy();
+	afx_msg void OnEditPaste();
+	afx_msg void OnEditCut();
+	afx_msg void OnEditUndo();
 };
 
 #ifndef _DEBUG  // MemoView.cpp의 디버그 버전
